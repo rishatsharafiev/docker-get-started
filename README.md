@@ -108,6 +108,26 @@ eval $(docker-machine env myvm1) # export manager env variables
 docker stack deploy -c docker-compose.yml getstartedlab # deploy services to manager, env variables are used from previous step
 ```
 
+# Get Started, Part 6: Deploy your app
+Prerequisites:
+- connect provider azure provider
+- create swarm in docker cloud from azure provider
+- install Docker for Azure CE VM, create Resource Group, Network security group
+
+Run swarm
+```
+docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock -e DOCKER_HOST dockercloud/client rishatsharafiev/getstartedlab
+export DOCKER_HOST=tcp://127.0.0.1:32769
+export DOCKER_HOST=tcp://127.0.0.1:32769
+```
+
+Check swarm status
+```
+docker node ls
+docker service ls
+docker service ps <service>
+```
+
 # Test Application
 ```
 ab -c 100 -n 1000  http://<manager_ip>/
