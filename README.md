@@ -97,3 +97,13 @@ eval $(docker-machine env -u)     # Disconnect shell from VMs, use native docker
 docker-machine stop $(docker-machine ls -q)               # Stop all running VMs
 docker-machine rm $(docker-machine ls -q) # Delete all VMs and their disk images
 ```
+
+# Part 5: Stacks
+```
+docker-machine start myvm1 # start vm
+docker-machine start myvm2 # start vm
+docker-machine ssh myvm1 "docker swarm init --advertise-addr <manager_ip>" # init swarm manager
+docker-machine ssh myvm2 "docker swarm join --token <token> <manager_ip:manager_port>" # attach swarm worker to manager
+eval $(docker-machine env myvm1) # export manager env variables
+docker stack deploy -c docker-compose.yml getstartedlab # deploy services to manager, env variables are used from previous step
+```
