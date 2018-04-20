@@ -107,3 +107,8 @@ docker-machine ssh myvm2 "docker swarm join --token <token> <manager_ip:manager_
 eval $(docker-machine env myvm1) # export manager env variables
 docker stack deploy -c docker-compose.yml getstartedlab # deploy services to manager, env variables are used from previous step
 ```
+
+# Test Application
+```
+ab -c 100 -n 1000  http://<manager_ip>/
+```
