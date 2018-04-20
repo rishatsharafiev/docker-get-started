@@ -25,6 +25,21 @@ services:
         constraints: [node.role == manager]
     networks:
       - webnet
+  portainer:
+    image: portainer/portainer:latest
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /home/docker/portainer/data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - webnet
   redis:
     image: redis
     ports:
